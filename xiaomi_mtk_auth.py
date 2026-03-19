@@ -441,7 +441,7 @@ class XiaomiMtkTool:
             "appId": "1",
             "data": {
                 "clientId": "mtkFlash",
-                "clientVersion": "6.3.706.22",
+                "clientVersion": "5.3.1209.3",
                 "flashToken": token,
                 "pcId": pc_id,
                 "uid": userId
