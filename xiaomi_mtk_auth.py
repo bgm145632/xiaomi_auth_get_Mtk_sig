@@ -154,7 +154,6 @@ class XiaomiMtkTool:
             print(f"{cr}解析服务响应失败{cres}")
             return False
         
-        print(f"{cy}服务响应: {cb}{json.dumps(auth_data, indent=2, ensure_ascii=False)}{cres}")
         if auth_data.get("code") != 0:
             error_msg = auth_data.get("desc", "未知错误")
             print(f"{cr}服务返回错误: {error_msg}{cres}")
@@ -206,7 +205,7 @@ class XiaomiMtkTool:
         self.cookies = {cookie.name: cookie.value for cookie in response.cookies}
         
         if 'serviceToken' not in self.cookies:
-            print(f"{cr}获取serviceToken失败.{cres}")
+            print(f"{cr}获取serviceToken失败，请使用验证码登录一次{cres}")
             return False
         
         self.auth_info = {
@@ -219,7 +218,7 @@ class XiaomiMtkTool:
         }
         self.save_data(self.auth_info)
         
-        print(f"\n{cg}DONE！登录成功!{cres}")
+        print(f"\n{cg}DONE Login！登录成功!{cres}")
         print(f"{cg}账户信息:{cres}\nID: {userId}")
         
         return True
@@ -393,7 +392,6 @@ class XiaomiMtkTool:
                     post_data[k.decode('utf-8')] = v.decode('utf-8')
                 
                 url = f"https://{self.mtk_api.current_host}{self.path}"
-                print(f"{cy}发送请求到: {url}{cres}")
                 
                 response = self.mtk_api.session.post(
                     url, 
@@ -402,9 +400,7 @@ class XiaomiMtkTool:
                     cookies=self.mtk_api.cookies,
                     timeout=30
                 )
-                
-                print(f"{cy}收到响应，状态码: {response.status_code}{cres}")
-                
+                            
                 if not response.text.strip():
                     return {"error": "服务器返回空响应"}
                 
