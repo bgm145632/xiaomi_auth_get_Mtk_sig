@@ -16,6 +16,8 @@
 2 - 获取登录token app(来自RohitVerma882):
 [mi_account](https://www.123865.com/s/Q0TTjv-DEE13)
 
+ps：我们目前尚不知道请求设备token是用哪个，Ag开头的码我们提交过提示"没刷机权限"，其他token提示更新工具。需自行测试！
+
 ## 作者:
 [BEICHEN](https://space.bilibili.com/9784369)
 
