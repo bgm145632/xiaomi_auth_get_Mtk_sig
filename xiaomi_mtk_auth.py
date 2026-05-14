@@ -180,11 +180,6 @@ class XiaomiMtkTool:
         self.ssecurity = auth_data["ssecurity"]
         self.nonce = nonce
         
-        print(f"{cy}获取到的认证参数:{cres}")
-        print(f"  ssecurity: {self.ssecurity[:20]}...")
-        print(f"  nonce: {self.nonce}")
-        print(f"  location: {location_url[:50]}...")
-        
         # 完成认证
         return self.complete_authentication(location_url, userId, passToken)
     
