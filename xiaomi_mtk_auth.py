@@ -425,14 +425,13 @@ class XiaomiMtkTool:
         
         userId = self.auth_info.get("userid")
         
-        device_id = f"wb_{uuid.uuid4()}"
-        pc_id = hashlib.md5(device_id.encode()).hexdigest()
+        pc_id = "you pcid"  # Enter the computer ID of the computer where you can currently log in to your Xiaomi account here.
 
         mtk_data = {
             "appId": "1",
             "data": {
                 "clientId": "mtkFlash",
-                "clientVersion": "5.3.1209.3",
+                "clientVersion": "1.1.426.30",
                 "flashToken": token,
                 "pcId": pc_id,
                 "uid": userId
@@ -441,7 +440,7 @@ class XiaomiMtkTool:
 
         result = self.RetrieveEncryptData(
             self,
-            "/api/v1/mtk/flash/ahaFlash",
+            "/api/v1/flash/ahaFlash",
             mtk_data
         ).add_nonce().run()
         
@@ -490,11 +489,12 @@ class XiaomiMtkTool:
             print(json.dumps(result, indent=2, ensure_ascii=False))
             
             if "code" in result and result["code"] == 0:
-                encrypt_data = result.get("encryptData")
+                data = result.get("data") or {}
+                encrypt_data = data.get("result") if isinstance(data, dict) else result.get("result")
                 if encrypt_data and isinstance(encrypt_data, str) and len(encrypt_data) > 10:
                     print(f"\n{cg}sig获取成功!{cres}")
                     print(f"{cb}{'='*50}{cres}")
-                    print(f"{cg}sig (encryptData):{cres}")
+                    print(f"{cg}sig (result):{cres}")
                     print(f"{cy}{encrypt_data}{cres}")
                     print(f"{cb}{'='*50}{cres}")
                     
